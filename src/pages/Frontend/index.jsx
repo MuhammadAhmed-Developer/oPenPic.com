@@ -9,7 +9,7 @@ export default function index() {
     <Header/>
      <Routes>
         <Route path='/'>
-            <Route index element={<Home/>}/>
+            {/* <Route index element={<Home/>}/> */}
         </Route>
      </Routes>
     </>
