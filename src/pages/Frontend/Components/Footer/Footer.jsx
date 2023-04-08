@@ -31,7 +31,7 @@ export default function Footer() {
             <div className="col-lg-2 col-md-4 col-sm-6 mt-3">
                <ul>
                 <li className='mb-3'><strong>Community</strong></li>
-                <li><a href="">Blog</a></li>
+                <li><Link to='/blogs'>Blogs</Link></li>
                 <li><a href="">Creator</a></li>
                 <li><a href="">Cameras</a></li>
                </ul>

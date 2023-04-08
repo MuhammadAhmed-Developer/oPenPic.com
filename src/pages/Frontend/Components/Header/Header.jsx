@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
+
+  const [bgColor, setBgColor] = useState('')
+  const [transition, setTransition] = useState('')
+
+
+  const handleScroll = () =>{
+    const position = window.pageYOffset;
+    if(position > 100){
+     setBgColor ('black')
+     setTransition('1s')
+    }else{
+      setBgColor('transparent')
+      
+    }
+  };
+
+  useEffect(()=>{
+    window.addEventListener('scroll', handleScroll, {position: true})
+
+    return ()=>{
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
 
   const isAuthentication = true
 
   return (
     <>
       <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark navbar-dark mb-0">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary  navbar-dark mb-0 fixed-top" style={{backgroundColor: bgColor, transition: transition}}>
           <div class="container-fluid">
             <Link to='/' class="navbar-brand ms-3"><h2> o<span className='p'>P</span>en<span className='p'>P</span>ic </h2></Link>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +57,7 @@ export default function Header() {
                         <div className="col-4">
                           <ul>
                             <li className='mb-3'><strong className='text-white'>Community</strong></li>
-                            <li><a href="">Blog</a></li>
+                            <li><Link to='/blogs'>Blogs</Link></li>
                             <li><a href="">Creator</a></li>
                             <li><a href="">Cameras</a></li>
                           </ul>
@@ -59,7 +83,7 @@ export default function Header() {
                   </Link>
                 </li>
                 {!isAuthentication ? <></>:<>
-                <li class="nav-item dropdown dropdown-center bg-dark ">
+                <li class="nav-item dropdown dropdown-center ">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <button className='border p-3 btn-drop rounded-5 '></button>
           </a>
