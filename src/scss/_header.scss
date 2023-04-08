@@ -50,3 +50,35 @@ nav{
     }
 }
 }
+
+.drop2{
+  // width: 50vh !important;
+  padding: 10px 5px;
+  ul{
+    list-style: none;
+    line-height: 38px;
+    li{
+        a{
+           color: rgb(245, 237, 237);
+           text-decoration: none;
+           &:hover{
+            text-decoration: underline;
+            // color: rgb(79, 183, 218) !important;
+            // color: rgb(112, 108, 108);
+            transition: 0.5s;
+            -webkit-transition: 0.5s;
+            -moz-transition: 0.5s;
+            -ms-transition: 0.5s;
+            -o-transition: 0.5s;
+}
+        }
+    }
+}
+}
+
+.btn-drop{
+  background: #003973;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #E5E5BE, #003973);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #E5E5BE, #003973); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
