@@ -7,9 +7,9 @@ export default function Footer() {
 
   return (
     <footer>
-    <div className="container-fluid bg-tertiary">
+    <div className="container-fluid bg-tertiary p-5">
         <div className="row">
-            <div className="col-lg-5 col-md-4 col-sm-12 text-start mx-4">
+            <div className="col-lg-5 col-md-12 col-sm-12 text-start ">
                 <h1>o<span className='p'>P</span>en<span className='p'>P</span>ic</h1>
                 <br />
                 <p>Over 3.1 million+ high quality stock images, videos and music shared by our talented community.</p>
