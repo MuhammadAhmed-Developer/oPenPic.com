@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import google from '../../../../accests/images/googlr.png'
 
 export default function Header() {
 
@@ -79,8 +78,8 @@ export default function Header() {
                   </ul>
                 </li>
                 <li className="nav-item">
-                  <Link to='/' className="nav-link active btn me-4" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >
-                    {!isAuthentication ? 'LogIn' : <><i className="bi bi-bell"></i></>}
+                  <Link to='/autentication/login' className="nav-link active btn me-4"  >
+                    {!isAuthentication ? 'LogIn' : <></>}
                   </Link>
                 </li>
                 {!isAuthentication ? <></> : <>
@@ -108,7 +107,7 @@ export default function Header() {
                     </ul>
                   </li></>}
                 <li className="nav-item my-lg-0 my-md-3 my-sm-3">
-                  <Link to='/' className="nav-link active btn me-5" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                  <Link to='/autentication/register' className="nav-link active btn me-5"  >
 
                     {!isAuthentication ? 'join' : ''}
                   </Link>
@@ -122,127 +121,6 @@ export default function Header() {
         </nav>
       </header>
 
-
-      {/* Login model */}
-
-
-
-      {/* <!-- Button trigger modal --> */}
-      {/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
-      </button> */}
-
-      {/* <!-- Modal Login --> */}
-      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header text-center ">
-              <h1 className="modal-title fs-4 fw-bold text-center" id="exampleModalLabel">Login to download unlimited full resolution media</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <div className="container">
-                <form action="">
-                  <div className="row">
-                    <div className="col my-3">
-                      <label htmlFor="" className='fw-bold mb-1'>Email</label>
-                      <input type="email" className="form-control " placeholder="abc@gmail.com" />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col my-3">
-                      <label htmlFor="" className='fw-bold mb-1'>Password</label>
-                      <input type="password" className="form-control " placeholder="Password" />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-8">
-                      <input className="form-check-input" type="checkbox" value="" id="invalidCheck" required />
-                      <label className="form-check-label ms-2" for="invalidCheck">
-                        Agree to terms and conditions
-                      </label>
-                    </div>
-                    <div className="col-4 text-end">
-                      <a href='#' className='text-success'>Forgot Password?</a>
-                    </div>
-                  </div>
-                  <div className="py-2 mt-4 text-center">
-                {/* <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button> */}
-                <button type="button" className="btn btn-success rounded-5 text-white fw-bold w-50" data-bs-dismiss="modal">Login</button>
-              </div>
-                </form>
-              </div>
-             
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-
-      {/* Model signUp */}
-
-
-       <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-dialog modal-dialog-scrollable">
-          <div className="modal-content">
-            <div className="modal-header text-center ">
-              <h1 className="modal-title fs-5 fw-bold text-center" id="exampleModalLabel">Sign Up to download unlimited full resolution media</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body ">
-              <div className="container">
-                <form action="">
-                  <div className="row">
-                    <div className="col">
-                    <div className="col my-5">
-                      <button className='btn btn-transparent google-btn border w-100 rounded-5'><img src={google} alt="" className='img-fluid mx-3' width={15} /> Continue with Google</button>
-                    </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    
-                    <div className="col my-3">
-                      <label htmlFor="" className='fw-bold mb-1'>Full Name</label>
-                      <input type="text" className="form-control " placeholder="Full name" />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col my-3">
-                      <label htmlFor="" className='fw-bold mb-1'>Email</label>
-                      <input type="email" className="form-control " placeholder="abc@gmail.com" />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col my-3">
-                      <label htmlFor="" className='fw-bold mb-1'>Password</label>
-                      <input type="password" className="form-control " placeholder="Password" />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-8">
-                      <input className="form-check-input" type="checkbox" value="" id="invalidCheck" required />
-                      <label className="form-check-label ms-2" for="invalidCheck">
-                        Agree to terms and conditions
-                      </label>
-                    </div>
-                    <div className="col-4 text-end">
-                      <a href='#' className='text-primary'>Forgot Password?</a>
-                    </div>
-                  </div>
-                  <div className="py-2 mt-4 text-center">
-                 <button type="button" className="btn btn-primary rounded-5 text-white fw-bold w-75" data-bs-dismiss="modal">Sign Up</button>
-              </div>
-                </form>
-              </div>
-             
-
-            </div>
-
-          </div>
-        </div>
-      </div>
 
 
 
