@@ -45,7 +45,7 @@ export default function Header() {
                   <button className="btn nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Explore
                   </button>
-                  <ul className="dropdown-menu drop bg-dark text-center">
+                  <ul className="dropdown-menu drop bg-dark text-center ">
                     <div className="container">
                       <div className="row">
                         <div className="col-lg-4">
@@ -107,14 +107,14 @@ export default function Header() {
                       </div>
                     </ul>
                   </li></>}
-                <li className="nav-item ">
+                <li className="nav-item my-sm-3">
                   <Link to='/' className="nav-link active btn me-5" data-bs-toggle="modal" data-bs-target="#exampleModal" >
 
                     {!isAuthentication ? 'join' : ''}
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to='/' className="btn btn-light upload-btn nav-link active me-lg-4 my-lg-0 my-md-3"><i className="bi bi-cloud-arrow-up-fill me-1 mt-1"></i>Upload</Link>
+                  <Link to='/' className="btn btn-light upload-btn nav-link active me-lg-4 my-lg-0 my-md-3 my-sm-3"><i className="bi bi-cloud-arrow-up-fill me-1 mt-1"></i>Upload</Link>
                 </li>
               </ul>
             </div>
