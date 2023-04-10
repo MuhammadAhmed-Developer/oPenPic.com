@@ -1,34 +1,44 @@
-import React from 'react';
-import { useReducer } from 'react';
-import { createContext } from 'react';
+import React, { createContext, useEffect, useReducer, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { auth } from "../Config/Firebase";
 
-export const AuthContext = createContext()
-const initialState = {isAuthentication: true}
-
-const reducer = ((state, action)=>{
-   
-    switch(action.type){
-     case 'LOGIN':
-     return {isAuthentication: true}
-     case 'LOGOUT':
-     return {isAuthentication: false}
-     default:
-      return state
-    }
-
-
+export const AuthContext = createContext();
+const initialState = { isAuthenticated: false, user: { uid: "" } }
+const reducer = ((state, { type, payload }) => {
+  switch (type) {
+    case "LOGIN":
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: payload.user,
+      };
+    case "LOGOUT":
+      return {
+        isAuthenticated: false,
+      };
+    default:
+      return state;
+  }
 })
+export default function AuthContextProvider({ children }) {
+  const [user, setUser] = useState({})
+  const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user)
+        dispatch({ type: "LOGIN", payload: user })
+      } else {
+        setUser({})
+      }
+      console.log(user)
+    })
 
-export default function AuthContextProvider(props) {
-
-    const [state, dispatch] = useReducer(reducer, initialState)
-   
+  }, [])
   return (
-
-    
-      <AuthContext.Provider value={{state, dispatch}}>
-        {props.Children}
-      </AuthContext.Provider>
-
-  )
+    <AuthContext.Provider value={{ ...state, dispatch, user }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
