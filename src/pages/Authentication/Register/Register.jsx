@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import google from '../../../accests/images/googlr.png';
 import facebook from '../../../accests/images/facebook.png'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../../Config/Firebase';
 
 const initialState = {
   name: '',
@@ -22,7 +23,41 @@ const [isProcessing, setIsProcesssing] = useState(false)
   const handleSubmit = (e) => {
    e.preventDefault()
    console.log(state)
+   let {name,email, password} = state
+   name = name.trim()
+   email= email.trim()
+   password= password.trim() 
+
+   if(name.length<3){
+    return window.notify('Please Enter Name Correctly', 'error')
+   }
+   if(!email){
+    return window.notify('Enter Email', 'error')
+   }
+   if(password.length<6){
+    return window.notify('Enter At least 6 Characters of password', 'error')
+   }
    
+   setIsProcesssing(true)
+
+   createUserWithEmailAndPassword(auth, email, password)
+   .then((userCredential) => {
+     // Signed in 
+     const user = userCredential.user;
+     console.log(user)
+     console.log('user created')
+    return window.notify('Welcome to oPenPic You have successfully Registered',)
+     // ...
+   })
+   .catch((error) => {
+     const errorCode = error.code;
+     const errorMessage = error.message;
+     window.notify('Something went wrong!', 'error')
+     // ..
+   });
+   setIsProcesssing(false)
+
+
   }
 
 
