@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import {AuthContext} from '../../../../Context/AuthContext';
 
 export default function Header() {
 
@@ -27,7 +28,7 @@ export default function Header() {
   }, [])
 
 
-  const isAuthentication = false
+  const {isAuthentication} = useContext(AuthContext)
 
   return (
     <>
@@ -78,9 +79,14 @@ export default function Header() {
                   </ul>
                 </li>
                 <li className="nav-item">
-                  <Link to='/autentication/login' className="nav-link active btn me-4"  >
+                  {!isAuthentication ?  <Link to='/autentication/login' className="nav-link active btn me-4"  >
+                    Login
+                  </Link> : <><button className="nav-link active btn me-4"  >
+                     <i className='bi bi-bell'></i>
+                    </button></> }
+                  {/* <Link to='/autentication/login' className="nav-link active btn me-4"  >
                     {!isAuthentication ? 'LogIn' : <></>}
-                  </Link>
+                  </Link> */}
                 </li>
                 {!isAuthentication ? <></> : <>
                   <li className="nav-item dropdown dropdown-center ">

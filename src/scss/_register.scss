@@ -1,0 +1,26 @@
+.facebook-btn:hover{
+    background-color: rgb(253, 249, 249);
+    border: 1px solid blue !important;
+}
+.google-button:hover{
+    background-color: rgb(255, 249, 249);
+    border:  1px solid red !important;
+}
+.auth-register{
+    background: url(../accests/images/auth.jpg) repeat center/cover fixed ;
+    min-height: 100vh;
+    padding: 60px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-singup{
+    background: #40E0D0;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FF0080, #FF8C00, #40E0D0);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FF0080, #FF8C00, #40E0D0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   &:hover{
+    border: 1px solid black;
+    color: black;
+   }
+}
