@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {AuthContext} from '../../../../Context/AuthContext';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../../../Config/Firebase';
 
 export default function Header() {
-
+  
+  const {isAuthentication, dipatch} = useContext(AuthContext)
   const [bgColor, setBgColor] = useState('transparent')
   const [transition, setTransition] = useState('')
 
@@ -27,8 +30,22 @@ export default function Header() {
     }
   }, [])
 
+ const handleLogout = ()=> {
 
-  const {isAuthentication} = useContext(AuthContext)
+signOut(auth)
+.then(()=>{
+dipatch({type:'LOGOUT'})
+Location.reload()
+})
+.catch((err)=>{
+    console.log(err)
+  
+})
+
+  console.log('LOGOUT')
+ }
+
+
 
   return (
     <>
@@ -104,7 +121,7 @@ export default function Header() {
                                 <li><a href="">My Media</a></li>
                                 <li><a href="">Upload</a></li>
                                 <li><a href="">settings</a></li>
-                                <li><button className='btn-transparent btn text-white mx-0'>Logout</button></li>
+                                <li><button className='btn-transparent btn text-white mx-0' onClick={handleLogout}>Logout</button></li>
                               </ul>
                             </div>
                           </div>

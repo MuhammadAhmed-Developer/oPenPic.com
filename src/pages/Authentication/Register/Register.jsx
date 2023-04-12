@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import google from '../../../accests/images/googlr.png';
 import facebook from '../../../accests/images/facebook.png'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, updateProfile } from "firebase/auth";
 import { auth } from '../../../Config/Firebase';
+import { AuthContext } from '../../../Context/AuthContext';
 
 const initialState = {
   name: '',
@@ -12,7 +14,8 @@ const initialState = {
 }
 
 export default function Register() {
-
+ const {dispatch, user} = useContext(AuthContext)
+ const navigate = useNavigate() 
 const [state , setState] = useState(initialState)
 const [isProcessing, setIsProcesssing] = useState(false)
 
@@ -44,22 +47,45 @@ const [isProcessing, setIsProcesssing] = useState(false)
    .then((userCredential) => {
      // Signed in 
      const user = userCredential.user;
+     createUserProfile()
      console.log(user)
      console.log('user created')
+     navigate ('/')
     return window.notify('Welcome to oPenPic You have successfully Registered',)
      // ...
    })
+     dispatch({type:'LOGIN', payload:{user}})
    .catch((error) => {
      const errorCode = error.code;
      const errorMessage = error.message;
      window.notify('Something went wrong!', 'error')
      // ..
    });
-   setIsProcesssing(false)
+
+
+  
 
 
   }
 
+  const createUserProfile = async () => {
+    const { name } = state
+
+    updateProfile(auth.currentUser, {
+      displayName : name, //photoURL: "https://example.com/jane-q-user/profile.jpg"
+    }).then(() => {
+      // Profile updated!
+      console.log('name pushed')
+      console.log(name)
+      // ...
+    }).catch((error) => {
+      // An error occurred
+      console.error(error)
+      // ...
+    });
+    setIsProcesssing(false)
+
+  }
 
   return (
     <div className='auth-register'>
@@ -110,8 +136,9 @@ const [isProcessing, setIsProcesssing] = useState(false)
                 <div className="row mb-4">
                   <div className="col">
                     <button className='btn btn-singup text-white w-100' disabled={isProcessing} >
-                      {!isProcessing ? 'join / Register' :
-                        <div className='spinner-border spinner-border-sm'></div>}
+                    {!isProcessing ? 'Sign Up' : 
+                    <div className='spinner-border spinner-border-sm'></div>
+                     }
                     </button>
                   </div>
                 </div>
