@@ -64,23 +64,23 @@ window.reload()
                   </button>
                   <ul className="dropdown-menu drop bg-dark text-center">
                     <div className="container">
-                      <div className="row">
-                        <div className="col-lg-4">
+                      <div className="row border-bottom ">
+                        <div className="col-lg-4 col-md-6 col-sm-12 dropm-exp">
                           <ul>
                             <li className='mb-3'><strong className='text-white'>Discover</strong></li>
                             <li><a href="">Editors's</a></li>
                             <li><a href="">Images</a></li>
                           </ul>
                         </div>
-                        <div className="col-4">
+                        <div className="col-lg-4 col-md-6 col-sm-12 dropm-exp">
                           <ul>
                             <li className='mb-3'><strong className='text-white'>Community</strong></li>
-                            <li><Link to='/blogs'>Blogs</Link></li>
+                            <li><Link to='/blogs'><i class="bi bi-blockquote-right me-3"></i> Blogs</Link></li>
                             <li><a href="">Creator</a></li>
                             <li><a href="">Cameras</a></li>
                           </ul>
                         </div>
-                        <div className="col-4">
+                        <div className="col-lg-4 col-md-6 col-sm-12 dropm-exp">
                           <ul>
                             <li className='mb-3'><strong className='text-white'>About</strong></li>
                             <li><Link to='/about'>About Us</Link></li>
@@ -106,25 +106,25 @@ window.reload()
                   </Link> */}
                 </li>
                 {!isAuthentication ? <></> : <>
-                  <li className="nav-item dropdown dropdown-center ">
+                  <li className="nav-item dropdown dropdown-center">
                     <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      <button className='border p-3 btn-drop rounded-5 my-lg-0 my-md-3 '></button>
+                      {/* <button className='border p-1  btn-drop  my-lg-0  my-md-3 '> */}
+                        <i class="bi bi-person-circle text-light fs-5"></i>
+                        {/* </button> */}
                     </a>
-                    <ul className="dropdown-menu drop2 bg-dark ">
+                    <ul className="dropdown-menu drop bg-dark text-start ">
                      
                       <div className="container">
                         <div className="row">
-                          <div className="col">
-                            <div className="col-12 text-start">
-                              <ul>
-                                <li><a href="">My Profile</a></li>
-                                <li><a href="">My Media</a></li>
-                                <li><a href="">Upload</a></li>
-                                <li><a href="">settings</a></li>
-                                <li><button className='btn-transparent btn text-white mx-0' onClick={handleLogout}>Logout</button></li>
+                            <div className="col-12">
+                              <ul className=''>
+                                <li><a href=""><i class="bi bi-person me-2"></i> My Profile</a></li>
+                                <li><a href=""><i class="bi bi-aspect-ratio me-2"></i> My Media</a></li>
+                                <li><Link to='/upload'><i class="bi bi-cloud-arrow-up-fill me-2"></i> Upload</Link></li>
+                                <li><a href=""><i class="bi bi-gear-wide-connected me-2"></i> settings</a></li>
+                                <li><button className='btn-transparent btn text-white' onClick={handleLogout}><i class="bi bi-person-dash fs-5 me-2"></i>Logout</button></li>
                               </ul>
                             </div>
-                          </div>
                         </div>
                       </div>
                     </ul>
@@ -133,7 +133,7 @@ window.reload()
                   {!isAuthentication ? <Link to='/autentication/register' className="nav-link active btn me-5"  >join</Link> : <></>}
                 </li>
                 <li className="nav-item">
-                  <Link to='/' className="btn btn-light upload-btn nav-link active me-lg-4 my-lg-0 my-md-3 my-sm-3"><i className="bi bi-cloud-arrow-up-fill me-1 mt-1"></i>Upload</Link>
+                  <Link to='/upload' className="btn btn-light upload-btn nav-link active me-lg-4 my-lg-0 my-md-3 my-sm-3"><i className="bi bi-cloud-arrow-up-fill me-1 mt-1"></i>Upload</Link>
                 </li>
               </ul>
             </div>
