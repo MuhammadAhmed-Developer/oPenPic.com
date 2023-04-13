@@ -1,11 +1,51 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {AuthContext} from '../../../Context/AuthContext'
+import { auth } from '../../../Config/Firebase';
+
+
+const initialState = {
+  email: '',
+  password: '',
+}
 
 export default function Login() {
 
-
+  const {dispatch} = useContext(AuthContext)
+  const [state , setState] = useState(initialState)
   const [isProcessing, setIsProcesssing] = useState(false)
+   const navigate = useNavigate()
 
+const handleChange = (e) => {
+    setState(s=>({...s,[e.target.name]:e.target.value}))
+}
+
+
+const handleSubmit = (e) => {
+  e.preventDefault()
+  const {email, password} = state
+  setIsProcesssing(true)
+signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user)
+    dispatch({type:'LOGIN', payload:{user}})
+    navigate('/')
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    window.notify('You are not currently Sing Up Please Sign Up!', 'error')
+  }).finally(()=>{
+    setIsProcesssing(false)
+  })
+  console.log(state)
+  setIsProcesssing(true)
+
+}
 
   return (
     <div className='auth'>
@@ -18,17 +58,17 @@ export default function Login() {
                    <h3 className='mb-4 fw-bold'>Login Now</h3>
                 </div>
                </div>
-              <form >
+              <form onSubmit={handleSubmit}>
               <div className="row mb-3">
                 <div className="col">
-                   <label htmlFor="email">Email</label>
-                  <input type="email" className='form-control' placeholder='Enter Your Email'  name='email'   />
+                   <label>Email</label>
+                  <input type="email" className='form-control' placeholder='Enter Your Email'  name='email' onChange={handleChange}  />
                 </div>
                </div>
                <div className="row mb-4">
                 <div className="col">
-                   <label htmlFor="password">Password</label>
-                  <input type="password" className='form-control' placeholder='Enter Your Password'  name='password'/>
+                   <label>Password</label>
+                  <input type="password" className='form-control' placeholder='Enter Your Password'  name='password' onChange={handleChange} />
                 </div>
                </div>
                <div className="row mb-4">

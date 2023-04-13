@@ -6,7 +6,7 @@ import { auth } from '../../../../Config/Firebase';
 
 export default function Header() {
   
-  const {isAuthentication, dipatch} = useContext(AuthContext)
+  const {isAuthentication, dispatch} = useContext(AuthContext)
   const [bgColor, setBgColor] = useState('transparent')
   const [transition, setTransition] = useState('')
 
@@ -34,8 +34,8 @@ export default function Header() {
 
 signOut(auth)
 .then(()=>{
-dipatch({type:'LOGOUT'})
-Location.reload()
+dispatch({type:'LOGOUT'})
+window.reload()
 })
 .catch((err)=>{
     console.log(err)
@@ -129,11 +129,8 @@ Location.reload()
                       </div>
                     </ul>
                   </li></>}
-                <li className="nav-item my-lg-0 my-md-3 my-sm-3">
-                  <Link to='/autentication/register' className="nav-link active btn me-5"  >
-
-                    {!isAuthentication ? 'join' : ''}
-                  </Link>
+                <li className="nav-item my-lg-0 my-md-3 my-sm-3 me-5">
+                  {!isAuthentication ? <Link to='/autentication/register' className="nav-link active btn me-5"  >join</Link> : <></>}
                 </li>
                 <li className="nav-item">
                   <Link to='/' className="btn btn-light upload-btn nav-link active me-lg-4 my-lg-0 my-md-3 my-sm-3"><i className="bi bi-cloud-arrow-up-fill me-1 mt-1"></i>Upload</Link>

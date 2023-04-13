@@ -10,6 +10,7 @@ export default function index() {
       <Routes>
           <Route path='/*' element={<Frontend/>} />
           <Route path='/autentication/*' element={<Authentication/>} />
+          {/* <Route path='/Uploads/*' element={<Authentication/>} /> */}
       </Routes>
      </BrowserRouter>
     </>

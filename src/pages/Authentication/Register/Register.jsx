@@ -51,16 +51,19 @@ const [isProcessing, setIsProcesssing] = useState(false)
      console.log(user)
      console.log('user created')
      navigate ('/')
-    return window.notify('Welcome to oPenPic You have successfully Registered',)
+     dispatch({type:'LOGIN', payload:{user}})
+    return window.notify('Welcome to oPenPic You have successfully Registered')
      // ...
    })
-     dispatch({type:'LOGIN', payload:{user}})
    .catch((error) => {
-     const errorCode = error.code;
-     const errorMessage = error.message;
+    //  const errorCode = error.code;
+    //  const errorMessage = error.message;
+     console.log(error)
      window.notify('Something went wrong!', 'error')
-     // ..
-   });
+     
+     setIsProcesssing(false)
+    });
+   
 
 
   
@@ -68,7 +71,7 @@ const [isProcessing, setIsProcesssing] = useState(false)
 
   }
 
-  const createUserProfile = async () => {
+  const createUserProfile = () => {
     const { name } = state
 
     updateProfile(auth.currentUser, {
