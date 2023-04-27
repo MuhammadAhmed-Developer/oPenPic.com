@@ -65,9 +65,6 @@ const [isProcessing, setIsProcesssing] = useState(false)
     });
    
 
-// Ahaaojwjjjjjjjjjjjj
-  
-
 
   }
 
@@ -98,6 +95,10 @@ const [isProcessing, setIsProcesssing] = useState(false)
             <div className="card login-card  border-0 shadow p-2 p-md-3 p-lg-4">
               <div className="row">
                 <div className="col">
+                  <h3 className='mb-4 fw-bold'>Join Now</h3>
+                  <h3 className='mb-4 fw-bold'>Join Now</h3>
+                  <h3 className='mb-4 fw-bold'>Join Now</h3>
+                  <h3 className='mb-4 fw-bold'>Join Now</h3>
                   <h3 className='mb-4 fw-bold'>Join Now</h3>
                   <hr />
 
