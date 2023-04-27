@@ -100,6 +100,9 @@ const [isProcessing, setIsProcesssing] = useState(false)
                   <h3 className='mb-4 fw-bold'>Join Now</h3>
                   <h3 className='mb-4 fw-bold'>Join Now</h3>
                   <h3 className='mb-4 fw-bold'>Join Now</h3>
+                  <h3 className='mb-4 fw-bold'>Join Now</h3>
+                  <h3 className='mb-4 fw-bold'>Join Now</h3>
+                  <h3 className='mb-4 fw-bold'>Join Now</h3>
                   <hr />
 
                 </div>
