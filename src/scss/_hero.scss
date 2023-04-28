@@ -1,7 +1,11 @@
 .search{
-    padding: 13px;
+  padding: 13px;
   background-color: white;
   border-radius: 25px 20px ;
+  -webkit-border-radius: 25px 20px ;
+  -moz-border-radius: 25px 20px ;
+  -ms-border-radius: 25px 20px ;
+  -o-border-radius: 25px 20px ;
 }
 .hero-section{
     background: url(../accests/images/back-img.jpg) repeat center/cover fixed;
@@ -14,6 +18,7 @@
     padding: 13px;
     border-radius: 25px 20px ;
     border-left: none;
+    outline: none !important;
 
 }
 

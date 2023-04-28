@@ -50,7 +50,7 @@ window.reload()
   return (
     <>
       <header>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary navbar-dark text-center  mb-0 fixed-top" style={{ backgroundColor: bgColor, transition: transition }}>
+        <nav className="navbar navbar-expand-lg bg-body-tertiary navbar-dark   mb-0 fixed-top" style={{ backgroundColor: bgColor, transition: transition }}>
           <div className="container-fluid">
             <Link to='/' className="navbar-brand ms-3"><h2> o<span className='p'>P</span>en<span className='p'>P</span>ic </h2></Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,11 +58,11 @@ window.reload()
             </button>
             <div className="collapse navbar-collapse text-center" id="navbarSupportedContent">
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li className="nav-item dropdown dropstart me-5 text-center">
+                <li className="nav-item dropdown dropstart me-5">
                   <button className="btn nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Explore
                   </button>
-                  <ul className="dropdown-menu drop bg-dark text-center">
+                  <ul className="dropdown-menu drop bg-dark">
                     <div className="container">
                       <div className="row border-bottom ">
                         <div className="col-lg-4 col-md-6 col-sm-12 dropm-exp">
@@ -95,7 +95,7 @@ window.reload()
                     </div>
                   </ul>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item text-end">
                   {!isAuthentication ?  <Link to='/autentication/login' className="nav-link active btn me-4"  >
                     Login
                   </Link> : <><button className="nav-link active btn me-4"  >
@@ -112,7 +112,7 @@ window.reload()
                         <i class="bi bi-person-circle text-light fs-5"></i>
                         {/* </button> */}
                     </a>
-                    <ul className="dropdown-menu drop bg-dark text-start ">
+                    <ul className="dropdown-menu drop-profile  bg-dark text-start">
                      
                       <div className="container">
                         <div className="row">
