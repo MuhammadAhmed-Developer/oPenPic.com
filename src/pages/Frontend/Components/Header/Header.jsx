@@ -75,7 +75,7 @@ window.reload()
                         <div className="col-lg-4 col-md-6 col-sm-12 dropm-exp">
                           <ul>
                             <li className='mb-3'><strong className='text-white'>Community</strong></li>
-                            <li><Link to='/blogs'><i class="bi bi-blockquote-right me-3"></i> Blogs</Link></li>
+                            <li><Link to='/blogs'><i className="bi bi-blockquote-right me-3"></i> Blogs</Link></li>
                             <li><a href="">Creator</a></li>
                             <li><a href="">Cameras</a></li>
                           </ul>
@@ -109,7 +109,7 @@ window.reload()
                   <li className="nav-item dropdown dropdown-center">
                     <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       {/* <button className='border p-1  btn-drop  my-lg-0  my-md-3 '> */}
-                        <i class="bi bi-person-circle text-light fs-5"></i>
+                        <i className="bi bi-person-circle text-light fs-5"></i>
                         {/* </button> */}
                     </a>
                     <ul className="dropdown-menu drop-profile  bg-dark text-start">
@@ -118,11 +118,11 @@ window.reload()
                         <div className="row">
                             <div className="col-12">
                               <ul className=''>
-                                <li><a href=""><i class="bi bi-person me-2"></i> My Profile</a></li>
-                                <li><a href=""><i class="bi bi-aspect-ratio me-2"></i> My Media</a></li>
-                                <li><Link to='/upload'><i class="bi bi-cloud-arrow-up-fill me-2"></i> Upload</Link></li>
-                                <li><a href=""><i class="bi bi-gear-wide-connected me-2"></i> settings</a></li>
-                                <li><button className='btn-transparent btn text-white' onClick={handleLogout}><i class="bi bi-person-dash fs-5 me-2"></i>Logout</button></li>
+                                <li><a href=""><i className="bi bi-person me-2"></i> My Profile</a></li>
+                                <li><a href=""><i className="bi bi-aspect-ratio me-2"></i> My Media</a></li>
+                                <li><Link to='/upload'><i className="bi bi-cloud-arrow-up-fill me-2"></i> Upload</Link></li>
+                                <li><a href=""><i className="bi bi-gear-wide-connected me-2"></i> settings</a></li>
+                                <li><button className='btn-transparent btn text-white' onClick={handleLogout}><i className="bi bi-person-dash fs-5 me-2"></i>Logout</button></li>
                               </ul>
                             </div>
                         </div>

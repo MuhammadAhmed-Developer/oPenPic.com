@@ -3,13 +3,14 @@ import {toast} from 'react-toastify'
 window.notify = (msg, type)=>{
     const option= {
         position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
+        autoClose: 3000,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
-        draggable: true,
+        draggable: false,
         progress: undefined,
-        theme: "light",
+        theme: "dark",
+        
     }
 
     switch(type){
