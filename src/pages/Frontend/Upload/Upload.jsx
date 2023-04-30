@@ -28,61 +28,68 @@ export default function Upload() {
      setstate(s=>({...s,[e.target.name]:e.target.value}))
   }
 
-  const handleSubmit =async (e) => {
-       e.preventDefault()
+  
+//   const uploadimg = async () =>{
+//     const filExtantion = file.name.split('.').pop();
+//     const randomId = Math.random().toString(36).slice(2)
+  
+  
+//     const storageRef = ref(storage, `userImg/${randomId}.${filExtantion}`);
+//     const uploadTask = uploadBytesResumable(storageRef, file);
+  
+//     uploadTask.on('state_changed',
+//     (snapshot) => {
+//         // Observe state change events such as progress, pause, and resume
+//         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+//         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+//         console.log('Upload is ' + progress + '% done');
+//         setProgress(progress)
+//         switch (snapshot.state) {
+//             case 'paused':
+//                 console.log('Upload is paused');
+//                 break;
+//             case 'running':
+//                 console.log('Upload is running');
+//                 break;
+//         }
+//     },
+//     (error) => {
+//         // Handle unsuccessful uploads
+//         console.log(error)
+//     },
+//     () => {
+//         // Handle successful uploads on complete
+//         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+//         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+//             console.log('File available at', downloadURL);
+//             setDownloadURL(downloadURL)
+//             const photoURL = downloadURL
+//             setDownloadURL(photoURL)
+          
+//         });
+//     }
+//   );
+// }
+
+
+const handleSubmit =async (e) => {
+  e.preventDefault()
 
 let {description, imgName} = state
 description = description.trim()
 imgName = imgName.trim()
 
 if(description.length < 10){
-  return window.notify('Pleae Enter Description', 'error')
+return window.notify('Pleae Enter Description', 'error')
 }
 if(imgName.length < 3){
-  return window.notify('Pleae Enter Image Name', 'error')
+return window.notify('Pleae Enter Image Name', 'error')
 }
 
-let imgData = {description, imgName}
-imgData.URL = setDownloadURL()
-imgData.dateCreated = serverTimestamp() 
-imgData.id = Math.random().toString(36).slice(2)
-imgData.dateCreated = {
-  uid: user.uid,
-  displayName: user.displayName
-}
-
-imagesData(imgData)
-  // console.log(imgData)
-
-
-  uploadimg(downloadURL)
-
-  }
-
-
-  const imagesData =async (imgData)=>{
-    // console.log('imgData', imgData)
-    
-    setIsLoading(true)
- 
-    try{
-      await setDoc(doc(firestore, "imagesData", imgData.id), imgData );
-      window.notify('Image has been Upload Successfully', 'success')
-    }catch(error){
-      console.log(error)
-      window.notify('Something went Wrong', 'error')
-
-    }
-    setIsLoading(false)
 
 
 
-
-  }
-  
-  const uploadimg = async () =>{
-    let {displayName} = state
-    const filExtantion = file.name.split('.').pop();
+const filExtantion = file.name.split('.').pop();
     const randomId = Math.random().toString(36).slice(2)
   
   
@@ -115,10 +122,46 @@ imagesData(imgData)
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             console.log('File available at', downloadURL);
             setDownloadURL(downloadURL)
-          
+            const photoURL = downloadURL
+            let imgData = {description, imgName}
+             imgData.photoURL = photoURL
+             imgData.dateCreated = serverTimestamp() 
+             imgData.id = Math.random().toString(36).slice(2)
+             imgData.dateCreated = {
+             uid: user.uid,
+             displayName: user.displayName
+}
+
+
+            imagesData(imgData)
+            
         });
     }
   );
+
+
+
+}
+
+
+const imagesData =async (imgData)=>{
+// console.log('imgData', imgData)
+
+setIsLoading(true)
+
+try{
+ await setDoc(doc(firestore, "imagesData", imgData.id), imgData );
+ window.notify('Image has been Upload Successfully', 'success')
+}catch(error){
+ console.log(error)
+ window.notify('Something went Wrong', 'error')
+
+}
+setIsLoading(false)
+
+
+
+
 }
 
 
@@ -162,7 +205,7 @@ imagesData(imgData)
               {/* <p>`{`${progress}%`}`</p> */}
               <div className="row py-3">
                 <div className="col text-end" >
-                  <button className='btn btn-light w-50 fw-bold text-info' onClick={uploadimg}  disabled={loading}>
+                  <button className='btn btn-light w-50 fw-bold text-info' disabled={loading}>
                     {!loading ? <><i className="bi bi-cloud-arrow-up-fill"></i> Upload</> : <> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div> <br/> {`${progress}%`}</>}
                   </button>
                 </div>
