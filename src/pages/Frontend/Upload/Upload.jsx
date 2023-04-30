@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { doc, serverTimestamp, setDoc } from "firebase/firestore"; 
 import { AuthContext } from '../../../Context/AuthContext';
-import { firestore } from '../../../Config/Firebase';
-import uploadimg from '../../../accests/images/upload image.png';
+import { firestore, storage } from '../../../Config/Firebase';
+import dpimg from '../../../accests/images/upload image.png';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { collection, addDoc } from "firebase/firestore";
 
 const initialState = {
    img:'',
@@ -18,6 +19,7 @@ export default function Upload() {
   const [file, setFile] = useState({})
   const [loading, setIsLoading] = useState(false)
   const [downloadURL, setDownloadURL] = useState('')
+  const [progress, setProgress] = useState('')
 
 
 
@@ -33,15 +35,15 @@ let {description, imgName} = state
 description = description.trim()
 imgName = imgName.trim()
 
-// if(description.length < 10){
-//   return window.notify('Pleae Enter Description', 'error')
-// }
-// if(imgName.length < 3){
-//   return window.notify('Pleae Enter Image Name', 'error')
-// }
+if(description.length < 10){
+  return window.notify('Pleae Enter Description', 'error')
+}
+if(imgName.length < 3){
+  return window.notify('Pleae Enter Image Name', 'error')
+}
 
 let imgData = {description, imgName}
-
+imgData.URL = setDownloadURL()
 imgData.dateCreated = serverTimestamp() 
 imgData.id = Math.random().toString(36).slice(2)
 imgData.dateCreated = {
@@ -49,70 +51,74 @@ imgData.dateCreated = {
   displayName: user.displayName
 }
 
-// imagesData(imgData)
-  console.log(imgData)
+imagesData(imgData)
+  // console.log(imgData)
 
 
-  // uploadImg()
+  uploadimg(downloadURL)
 
   }
 
 
-  // const imagesData =async (imgData)=>{
-  //   setIsLoading(true)
+  const imagesData =async (imgData)=>{
+    // console.log('imgData', imgData)
+    
+    setIsLoading(true)
  
-  //   try{
-  //     await setDoc(doc(firestore, "imagesData", imgData.id), imgData );
-  //     window.notify('Image has been Upload Successfully', 'success')
-  //   }catch(error){
-  //     console.log(error)
-  //     window.notify('Something went Wrong', 'error')
-
-  //   }
-  //   setIsLoading(false)
-
-
-
-
-  // }
-
-
-  const uploadImg =async ()=> {
-
-    const fileExtention = file.name.split('.').pop();
-    const randomId = Math.random().toString(36).slice(2)
-
-    const storageRef = ref(Storage, `userImg/${randomId}.${fileExtention}`);
-  const uploadTask = uploadBytesResumable(storageRef, file);
-
-  uploadTask.on('state_changed',
-  (snapshot) => {
-      // Observe state change events such as progress, pause, and resume
-      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
-      switch (snapshot.state) {
-          case 'paused':
-              console.log('Upload is paused');
-              break;
-          case 'running':
-              console.log('Upload is running');
-              break;
-      }
-  },
-  (error) => {
-      // Handle unsuccessful uploads
+    try{
+      await setDoc(doc(firestore, "imagesData", imgData.id), imgData );
+      window.notify('Image has been Upload Successfully', 'success')
+    }catch(error){
       console.log(error)
-  },
-  () => {
-      // Handle successful uploads on complete
-      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log('File available at', downloadURL);
-          setDownloadURL(downloadURL)
-      });
+      window.notify('Something went Wrong', 'error')
+
+    }
+    setIsLoading(false)
+
+
+
+
   }
-);
+  
+  const uploadimg = async () =>{
+    let {displayName} = state
+    const filExtantion = file.name.split('.').pop();
+    const randomId = Math.random().toString(36).slice(2)
+  
+  
+    const storageRef = ref(storage, `userImg/${randomId}.${filExtantion}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+  
+    uploadTask.on('state_changed',
+    (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+        setProgress(progress)
+        switch (snapshot.state) {
+            case 'paused':
+                console.log('Upload is paused');
+                break;
+            case 'running':
+                console.log('Upload is running');
+                break;
+        }
+    },
+    (error) => {
+        // Handle unsuccessful uploads
+        console.log(error)
+    },
+    () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            setDownloadURL(downloadURL)
+          
+        });
+    }
+  );
 }
 
 
@@ -125,9 +131,9 @@ imgData.dateCreated = {
             <div className="card shadow border-0 p-3">
               <form onSubmit={handleSubmit}>
               <div className="col-12 text-center">
-                <label htmlFor="img-file" className='img-upload'><img src={uploadimg} alt="upload image" className='img-fluid w-50 rounded-circle' />
+                <label htmlFor="img-file" className='img-upload'><img src={dpimg} alt="upload image" className='img-fluid w-50 rounded-circle' />
                 <br/> <span className='text-white' id='select'>
-                {!file ? "Upload" : <>{file.name}</>}
+                {!file.name ? "Upload" : <>{file.name}</>}
  
                 </span>
                 </label>
@@ -138,7 +144,7 @@ imgData.dateCreated = {
               
               <div className="row py-3">
                 <div className="col" >
-                  <input type="text" className='form-control' value={file.name} placeholder='Image Name' name='imgName' onChange={handleChange} />
+                  <input type="text" className='form-control'  placeholder='Image Name' name='imgName' onChange={handleChange} />
                 </div>
               </div>
               <div className="row py-2">
@@ -153,10 +159,11 @@ imgData.dateCreated = {
                   <a href="https://pixabay.com/service/terms/" target='_blank'> Content License.</a></span> 
                 </div>
               </div>
+              {/* <p>`{`${progress}%`}`</p> */}
               <div className="row py-3">
                 <div className="col text-end" >
-                  <button className='btn btn-light w-50 fw-bold text-info' onClick={uploadImg} disabled={loading}>
-                    {!loading ? <><i className="bi bi-cloud-arrow-up-fill"></i> Upload</> : <> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div></>}
+                  <button className='btn btn-light w-50 fw-bold text-info' onClick={uploadimg}  disabled={loading}>
+                    {!loading ? <><i className="bi bi-cloud-arrow-up-fill"></i> Upload</> : <> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div> <br/> {`${progress}%`}</>}
                   </button>
                 </div>
               </div>
