@@ -3,6 +3,7 @@ import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { AuthContext } from '../../../Context/AuthContext';
 import { firestore } from '../../../Config/Firebase';
 import uploadimg from '../../../accests/images/upload image.png';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 const initialState = {
    img:'',
@@ -16,6 +17,8 @@ export default function Upload() {
   const [state, setstate] = useState(initialState)
   const [file, setFile] = useState({})
   const [loading, setIsLoading] = useState(false)
+  const [downloadURL, setDownloadURL] = useState('')
+
 
 
 
@@ -30,12 +33,12 @@ let {description, imgName} = state
 description = description.trim()
 imgName = imgName.trim()
 
-if(description.length < 10){
-  return window.notify('Pleae Enter Description', 'error')
-}
-if(imgName.length < 3){
-  return window.notify('Pleae Enter Image Name', 'error')
-}
+// if(description.length < 10){
+//   return window.notify('Pleae Enter Description', 'error')
+// }
+// if(imgName.length < 3){
+//   return window.notify('Pleae Enter Image Name', 'error')
+// }
 
 let imgData = {description, imgName}
 
@@ -46,30 +49,73 @@ imgData.dateCreated = {
   displayName: user.displayName
 }
 
-imagesData(imgData)
+// imagesData(imgData)
   console.log(imgData)
 
 
+  // uploadImg()
+
   }
 
 
-  const imagesData =async (imgData)=>{
-    setIsLoading(true)
+  // const imagesData =async (imgData)=>{
+  //   setIsLoading(true)
  
-    try{
-      await setDoc(doc(firestore, "imagesData", imgData.id), imgData );
-      window.notify('Image has been Upload Successfully', 'success')
-    }catch(error){
+  //   try{
+  //     await setDoc(doc(firestore, "imagesData", imgData.id), imgData );
+  //     window.notify('Image has been Upload Successfully', 'success')
+  //   }catch(error){
+  //     console.log(error)
+  //     window.notify('Something went Wrong', 'error')
+
+  //   }
+  //   setIsLoading(false)
+
+
+
+
+  // }
+
+
+  const uploadImg =async ()=> {
+
+    const fileExtention = file.name.split('.').pop();
+    const randomId = Math.random().toString(36).slice(2)
+
+    const storageRef = ref(Storage, `userImg/${randomId}.${fileExtention}`);
+  const uploadTask = uploadBytesResumable(storageRef, file);
+
+  uploadTask.on('state_changed',
+  (snapshot) => {
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+          case 'paused':
+              console.log('Upload is paused');
+              break;
+          case 'running':
+              console.log('Upload is running');
+              break;
+      }
+  },
+  (error) => {
+      // Handle unsuccessful uploads
       console.log(error)
-      window.notify('Something went Wrong', 'error')
-
-    }
-    setIsLoading(false)
-
-
-
-
+  },
+  () => {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log('File available at', downloadURL);
+          setDownloadURL(downloadURL)
+      });
   }
+);
+}
+
+
 
   return (
     <>
@@ -89,14 +135,15 @@ imagesData(imgData)
                 <input type="file" id='img-file' className='d-none' name='img' 
                 onChange={e=>{setFile(e.target.files[0])}} />
               </div>
+              
               <div className="row py-3">
-                <div className="col">
-                  <textarea name="description" placeholder='Image Description' rows="5" className='form-control' onChange={handleChange}></textarea>
-                </div>
-              </div>
-              <div className="row">
                 <div className="col" >
                   <input type="text" className='form-control' value={file.name} placeholder='Image Name' name='imgName' onChange={handleChange} />
+                </div>
+              </div>
+              <div className="row py-2">
+                <div className="col">
+                  <textarea name="description" placeholder='Image Description' rows="5" className='form-control' onChange={handleChange}></textarea>
                 </div>
               </div>
               <div className="row py-3">
@@ -108,7 +155,7 @@ imagesData(imgData)
               </div>
               <div className="row py-3">
                 <div className="col text-end" >
-                  <button className='btn btn-light w-50 fw-bold text-info' disabled={loading}>
+                  <button className='btn btn-light w-50 fw-bold text-info' onClick={uploadImg} disabled={loading}>
                     {!loading ? <><i className="bi bi-cloud-arrow-up-fill"></i> Upload</> : <> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div></>}
                   </button>
                 </div>
