@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
-import uploadimg from '../../../accests/images/upload image.png';
-import { doc, setDoc } from "firebase/firestore"; 
+import React, { useContext, useState } from 'react';
+import { doc, serverTimestamp, setDoc } from "firebase/firestore"; 
+import { AuthContext } from '../../../Context/AuthContext';
 import { firestore } from '../../../Config/Firebase';
-
+import uploadimg from '../../../accests/images/upload image.png';
 
 const initialState = {
    img:'',
-   msg:'',
+   description:'',
    imgName:''
 }
 
 export default function Upload() {
 
+  const {user} = useContext(AuthContext)
   const [state, setstate] = useState(initialState)
   const [file, setFile] = useState({})
   const [loading, setIsLoading] = useState(false)
+
 
 
   const handleChange = (e) =>{
@@ -23,42 +25,51 @@ export default function Upload() {
 
   const handleSubmit =async (e) => {
        e.preventDefault()
-      // console.log(state)
-      // console.log(file)
 
-let {msg, imgName , img} = state
-msg = msg.trim()
+let {description, imgName} = state
+description = description.trim()
 imgName = imgName.trim()
 
-if(msg.length < 10){
-  return window.notify('wrong', '')
+if(description.length < 10){
+  return window.notify('Pleae Enter Description', 'error')
+}
+if(imgName.length < 3){
+  return window.notify('Pleae Enter Image Name', 'error')
 }
 
+let imgData = {description, imgName}
 
+imgData.dateCreated = serverTimestamp() 
+imgData.id = Math.random().toString(36).slice(2)
+imgData.dateCreated = {
+  uid: user.uid,
+  displayName: user.displayName
+}
 
-
-
-let uploads = {msg , imgName}
-
-
-     try{
-      await setDoc(doc(firestore, "Uploads", Math.random().toString(36).slice(2)), uploads) ;
-     }catch(err){
-       console.error(err)
-     }
-
-
+imagesData(imgData)
+  console.log(imgData)
 
 
   }
 
 
-  const handleUpload = ()=>{
+  const imagesData =async (imgData)=>{
+    setIsLoading(true)
+ 
+    try{
+      await setDoc(doc(firestore, "imagesData", imgData.id), imgData );
+      window.notify('Image has been Upload Successfully', 'success')
+    }catch(error){
+      console.log(error)
+      window.notify('Something went Wrong', 'error')
+
+    }
+    setIsLoading(false)
+
 
 
 
   }
-
 
   return (
     <>
@@ -80,7 +91,7 @@ let uploads = {msg , imgName}
               </div>
               <div className="row py-3">
                 <div className="col">
-                  <textarea name="msg" placeholder='Image Description' rows="5" className='form-control' onChange={handleChange}></textarea>
+                  <textarea name="description" placeholder='Image Description' rows="5" className='form-control' onChange={handleChange}></textarea>
                 </div>
               </div>
               <div className="row">
@@ -98,7 +109,7 @@ let uploads = {msg , imgName}
               <div className="row py-3">
                 <div className="col text-end" >
                   <button className='btn btn-light w-50 fw-bold text-info' disabled={loading}>
-                    {!loading ? <><i class="bi bi-cloud-arrow-up-fill"></i> Upload</> : <> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div></>}
+                    {!loading ? <><i className="bi bi-cloud-arrow-up-fill"></i> Upload</> : <> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div> <div className='spinner-grow spinner-grow-sm'></div></>}
                   </button>
                 </div>
               </div>

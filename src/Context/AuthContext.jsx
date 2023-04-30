@@ -41,23 +41,7 @@ export default function AuthContextProvider(props) {
         }
       })
     }, [])
-    // const readUserData = async (user) => {
-
-    //   const docRef = doc(firestore, "users", user.uid);
-    //   const docSnap = await getDoc(docRef);
   
-    //   if (docSnap.exists()) {
-    //     // console.log("Document data:", docSnap.data());
-    //     let userData = docSnap.data()
-    //     setUser(userData)
-    //     // console.log("userData =>", userData)
-    //     dispatch({ type: "LOGIN", payload: { user } });
-    //   } else {
-    //     // doc.data() will be undefined in this case
-    //     console.log("No such document!");
-    //   }
-    // }
-
   return (
     <AuthContext.Provider value={{...state, dispatch}}>
      {props.children}
