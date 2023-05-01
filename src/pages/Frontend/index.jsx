@@ -6,6 +6,7 @@ import Home from './Home';
 import About from './About/About';
 import Blogs from './Blogs/Blogs';
 import Upload from './Upload/Upload';
+import MyUploads from './MyUploads/MyUploads';
 export default function index() {
   return (
     <>
@@ -17,6 +18,7 @@ export default function index() {
             <Route path='about' element={<About/>}/>
             <Route path='blogs' element={<Blogs/>}/>
             <Route path='upload' element={<Upload/>}/>
+            <Route path='myuploads' element={<MyUploads/>}/>
         </Route>
      </Routes>
      </main>
