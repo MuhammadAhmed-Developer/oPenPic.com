@@ -6,8 +6,8 @@ export default function Footer() {
  const currentYear = new Date().getFullYear()
 
   return (
-    <footer>
-    <div className="container-fluid bg-tertiary p-5">
+    <footer className='footer'>
+    <div className="container-fluid p-5 ">
         <div className="row">
             <div className="col-lg-5 col-md-12 col-sm-12 text-start ">
                 <h1>o<span className='p'>P</span>en<span className='p'>P</span>ic</h1>

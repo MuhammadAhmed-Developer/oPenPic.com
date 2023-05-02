@@ -1,0 +1,9 @@
+.profiles{
+
+    position: relative;
+    top: -80px;
+    display: none;
+     &:hover{
+        display: block !important;
+     }
+}

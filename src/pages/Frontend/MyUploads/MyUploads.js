@@ -3,7 +3,6 @@ import myimg from '../../../accests/images/upload image.png';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { AuthContext } from '../../../Context/AuthContext';
 import { auth, firestore } from '../../../Config/Firebase';
-import { onAuthStateChanged } from 'firebase/auth';
 
 
 export default function MyUploads() {
@@ -15,42 +14,25 @@ export default function MyUploads() {
    const {imagesData, setImagesData} = useState([])
 
 
-   useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        // console.log(uid)
-        console.log('User is signed In')
-        // readUserData(user)
-
-        // ...
-        // dispatch({type:"LOGIN", payload:{user}})
-      } else {
-        console.log('User is signed out')
-        // ...
-      }
-    })
-  }, [])
-
 
     const fetchData = async () => {
 
          let array = []
+
         const q = query(collection(firestore, "imagesData"), where("createdBy.uid", "==", user.uid));
-         console.log(user.uid)
+
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-            // console.log(doc.id, " => ", doc.data());
-            let data = doc.data
-            array.push(data)
-        });
+          // doc.data() is never undefined for query doc snapshots
+        //   console.log(doc.id, " => ", doc.data());
+              let data = doc.data()
+            //   console.log('data', data)
+              array.push(data)
+        })
         setDocument(array)
         setIsLoading(false)
-        // console.log(document)
-    }
-
+        }
+        
     useEffect(()=>{
         fetchData()
     }, [user])
@@ -66,15 +48,15 @@ export default function MyUploads() {
                         <div className="row mt-5">
                             {!isLoading ? 
                             
-                            <div className="col-lg-6 col-md-12 col-sm-12">
-
+                             <>
                             {document.map((imagesData, i)=>{
-                                    <div key={i} className="card mb-3" style={{ maxWidth: 540 }}>
+                              return <div key={i} className="col-lg-6 col-md-12 col-sm-12">
+                                    <div  className="card mx-auto p-3 mb-3" style={{ maxWidth: 540 }}>
                                     <div className="row g-0">
-                                        <div className="col-md-4">
-                                            <img src={imagesData.photoURL} className="img-fluid rounded-start w-100 img-fluid" alt="..." />
+                                        <div className="col-md-12">
+                                            <img src={imagesData.photoURL} className="img-fluid rounded-start  w-100 img-fluid" alt="Image" />
                                         </div>
-                                        <div className="col-md-8">
+                                        <div className="col-md-12">
                                             <div className="card-body ">
 
                                                 <h5 className="card-title mt-3">Image Name</h5>
@@ -90,10 +72,12 @@ export default function MyUploads() {
                                         </div>
                                     </div>
                                 </div>
-                            })}
-
+                                
                             </div>
-                            : <><div className='spinner-grow  text-info '></div><div className='mx-2 spinner-grow  text-info '></div><div className='spinner-grow  text-info '></div></>
+                            
+                            })}
+                           </>
+                            : <div className='text-center '><div className='spinner-grow  text-info '></div><div className='mx-2 spinner-grow  text-info '></div><div className='spinner-grow  text-info '></div></div>
                             
                         }
                           
