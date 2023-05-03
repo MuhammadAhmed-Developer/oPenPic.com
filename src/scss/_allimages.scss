@@ -1,9 +1,43 @@
-.profiles{
+// .profiles{
 
+//     position: relative;
+   
+//     display: none;
+     
+// }
+.box{
     position: relative;
-    top: -80px;
+}
+.profiles{
     display: none;
-     &:hover{
-        display: block !important;
-     }
+    bottom: 0px;
+    position: absolute;
+    transform: 3s ease-in-out;
+    -webkit-transform: 3s ease-in-out;
+    -moz-transform: 3s ease-in-out;
+    -ms-transform: 3s ease-in-out;
+    -o-transform: 3s ease-in-out;
+}
+.box:hover .profiles {
+ display: block;
+ transition: 5s !important;
+ -webkit-transition: 5s !important;
+ -moz-transition: 5s !important;
+ -ms-transition: 5s !important;
+ -o-transition: 5s !important;
+ transform: translateY(0);
+ -webkit-transform: translateY(0);
+ -moz-transform: translateY(0);
+ -ms-transform: translateY(0);
+ -o-transform: translateY(0);
+}
+.icons{
+    display: none;
+    top: 0px;
+    position: absolute;
+    left: 50vh;
+    // display: flex;
+}
+.box:hover .icons{
+    display: block;
 }
