@@ -7,6 +7,7 @@
 // }
 .box{
     position: relative;
+    overflow: hidden;
 }
 .profiles{
     display: none;
@@ -33,11 +34,20 @@
 }
 .icons{
     display: none;
-    top: 0px;
+    // top: 0px;
     position: absolute;
-    left: 50vh;
+    // left: 50vh;
     // display: flex;
+    bottom: 10px;
 }
 .box:hover .icons{
     display: block;
+}
+.img-home::after{
+    content: '';
+    width: 100vh;
+    height: auto;
+    background-color: aqua;
+
+    
 }
