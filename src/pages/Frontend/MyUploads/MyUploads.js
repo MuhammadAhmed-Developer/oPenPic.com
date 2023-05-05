@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import myimg from '../../../accests/images/upload image.png';
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { AuthContext } from '../../../Context/AuthContext';
 import { auth, firestore } from '../../../Config/Firebase';
 
@@ -10,6 +10,8 @@ export default function MyUploads() {
     const {user} = useContext(AuthContext)
     const [document, setDocument] = useState({})
     const [isLoading, setIsLoading] = useState(true)
+    const [isLoadingDelete, setIsLoadingDelete] = useState(false)
+
 //  console.log(document)
    const {imagesData, setImagesData} = useState([])
 
@@ -37,9 +39,28 @@ export default function MyUploads() {
         fetchData()
     }, [user])
 
+
+    const handleDelete =async (imagesData)=>{
+        
+        try {
+            await deleteDoc(doc(firestore, "imagesData", imagesData.id));
+            window.notify('Event has been Deleted', 'success')
+            let newDocuments = document.filter((doc) => {
+                return doc.id !== imagesData.id
+            })
+            setDocument(newDocuments)
+
+        } catch (err) {
+            console.log(err)
+            window.notify('Something went wrong', 'error')
+        }
+
+
+    }
+
     return (
         <>
-            <section className='myuploads mt-5'>
+            <section className='myuploads '>
                 <div className="container">
                     <div className="row">
                         <div className="col text-center">
@@ -65,8 +86,8 @@ export default function MyUploads() {
                                                 <h5 className="card-title">Image Description</h5>
                                                 <p className="card-text">{imagesData.description}</p>
                                                 <div className='text-end'>
-                                                    <button className='btn btn-danger btn-sm'>Delete</button>
-                                                    <button className='btn btn-info ms-2 btn-sm'>Change</button>
+                                                    <button className='btn btn-danger btn-sm' disabled={isLoadingDelete} onClick={()=>{handleDelete(imagesData)}}>Delete</button>
+                                                    {/* <button className='btn btn-info ms-2 btn-sm'>Change</button> */}
                                                 </div>
                                             </div>
                                         </div>
