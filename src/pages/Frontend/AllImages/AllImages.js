@@ -58,7 +58,7 @@ export default function AllImages() {
      <section className='my-5 mx-3'>
         <div className="container-fluid my-5">
              {!isProcessing ?
-            <Link to='/imageview' className="row g-4 images-in-home" onClick={handleView}>
+            <div className="row g-4 images-in-home" onClick={handleView}>
                {document.map((imagesData, i)=>{
                return <div key={i} className=" col-lg-4 col-md-6 cl-sm-12 box  ">
                 <div className='card border-0 mx-auto img-home d-flex justify-content-center align-items-center ' style={{overflow:'hidden'}}>
@@ -72,7 +72,7 @@ export default function AllImages() {
                 </div>
               </div>
                })}
-            </Link>
+            </div>
           : <div className='spinner-border-danger text-center'>Loading...</div>}
         </div>
      </section>

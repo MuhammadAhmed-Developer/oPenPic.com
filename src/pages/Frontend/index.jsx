@@ -20,7 +20,7 @@ export default function index() {
             <Route path='blogs' element={<Blogs/>}/>
             <Route path='upload' element={<Upload/>}/>
             <Route path='myuploads' element={<MyUploads/>}/>
-            <Route path='imageview' element={<ImageView/>}/>
+            {/* <Route path='imageview' element={<ImageView/>}/> */}
         </Route>
      </Routes>
      </main>
