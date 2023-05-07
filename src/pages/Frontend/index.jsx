@@ -7,6 +7,7 @@ import About from './About/About';
 import Blogs from './Blogs/Blogs';
 import Upload from './Upload/Upload';
 import MyUploads from './MyUploads/MyUploads';
+import ImageView from './ImageView/ImageView';
 export default function index() {
   return (
     <>
@@ -19,6 +20,7 @@ export default function index() {
             <Route path='blogs' element={<Blogs/>}/>
             <Route path='upload' element={<Upload/>}/>
             <Route path='myuploads' element={<MyUploads/>}/>
+            <Route path='imageview' element={<ImageView/>}/>
         </Route>
      </Routes>
      </main>

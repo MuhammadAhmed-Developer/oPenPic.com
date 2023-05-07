@@ -58,14 +58,14 @@ window.reload()
             </button>
             <div className="collapse navbar-collapse text-center" id="navbarSupportedContent">
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li className="nav-item dropdown dropstart me-5">
+                <li className="nav-item dropdown dropstart me-5 text-center">
                   <button className="btn nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Explore
                   </button>
                   <ul className="dropdown-menu drop bg-dark">
                     <div className="container">
                       <div className="row border-bottom ">
-                        <div className="col-lg-4 col-md-6 col-sm-12 dropm-exp">
+                        <div className="col-lg-4 col-md-4 col-sm-6 dropm-exp">
                           <ul>
                             <li className='mb-3'><strong className='text-white'>Discover</strong></li>
                             <li><a href="">Editors's</a></li>
@@ -112,14 +112,14 @@ window.reload()
                         <i className="bi bi-person-circle text-light fs-5"></i>
                         {/* </button> */}
                     </a>
-                    <ul className="dropdown-menu drop-profile  bg-dark text-start">
+                    <ul className="dropdown-menu dropdown-start drop-profile  bg-dark">
                      
                       <div className="container">
                         <div className="row">
                             <div className="col-12">
                               <ul className=''>
                                 <li><a href=""><i className="bi bi-person me-2"></i> My Profile</a></li>
-                                <li><a href=""><i className="bi bi-aspect-ratio me-2"></i> My Media</a></li>
+                                <li><Link to='/myuploads'><i className="bi bi-aspect-ratio me-2"></i> My Media</Link></li>
                                 <li><Link to='/upload'><i className="bi bi-cloud-arrow-up-fill me-2"></i> Upload</Link></li>
                                 <li><a href=""><i className="bi bi-gear-wide-connected me-2"></i> settings</a></li>
                                 <li><button className='btn-transparent btn text-white' onClick={handleLogout}><i className="bi bi-person-dash fs-5 me-2"></i>Logout</button></li>
