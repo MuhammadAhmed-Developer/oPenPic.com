@@ -45,6 +45,14 @@ window.reload()
   console.log('LOGOUT')
  }
 
+const handleNavColor = () => {
+
+  // document.getElementsById('navcolor').style.backgroundColor = 'black'
+
+  setBgColor('black')
+
+}
+
 
 
   return (
@@ -52,14 +60,14 @@ window.reload()
       <header>
         <nav className="navbar navbar-expand-lg bg-body-tertiary navbar-dark   mb-0 fixed-top" style={{ backgroundColor: bgColor, transition: transition }}>
           <div className="container-fluid">
-            <Link to='/' className="navbar-brand ms-3"><h2> o<span className='p'>P</span>en<span className='p'>P</span>ic </h2></Link>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <Link to='/' className="navbar-brand ms-3"><h1 className='logopic'> o<span className='p'>P</span>en<span className='p'>P</span>ic </h1></Link>
+            <button className="navbar-toggler" onClick={handleNavColor} type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse text-center" id="navbarSupportedContent">
-              <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li className="nav-item dropdown dropstart me-5 text-center">
-                  <button className="btn nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <ul className="navbar-nav ms-auto mb-3 mb-lg-0">
+                <li className="nav-item dropdown dropstart me-5 d-flex justify-content-center">
+                  <button className="btn nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown">
                     Explore
                   </button>
                   <ul className="dropdown-menu drop bg-dark">
@@ -95,7 +103,7 @@ window.reload()
                     </div>
                   </ul>
                 </li>
-                <li className="nav-item text-end">
+                <li className="nav-item  d-flex justify-content-center">
                   {!isAuthentication ?  <Link to='/autentication/login' className="nav-link active btn me-4"  >
                     Login
                   </Link> : <><button className="nav-link active btn me-4"  >

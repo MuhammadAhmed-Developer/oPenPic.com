@@ -12,8 +12,8 @@ export default function AllImages() {
   const [document, setDocument] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [imagesData, setImagesData] = useState({})
-  const {isProcessing, setIsProcessing} = useState(true)
-
+  const [isProcessing, setIsProcessing] = useState(true)
+  const [like, setLike] = useState('bi-suit-heart')
 
   const fetchData = async () => {
 
@@ -32,12 +32,18 @@ export default function AllImages() {
    setDocument(array)
    setIsLoading(false)
    }
- 
+  
+  //  console.log(document)
    
  useEffect(()=>{
    fetchData()
    }, [user])
 
+
+   const handleLike = () => {
+         setLike('bi-suit-heart-fill')
+   
+   }
 
 
   //  const handleView = () =>{
@@ -52,28 +58,37 @@ export default function AllImages() {
 
 
 
+
   return (
     <>
      
      <section className='my-5 mx-3'>
         <div className="container-fluid my-5">
-             {!isProcessing ?
+             {isProcessing ?
             <div className="row g-4 images-in-home">
                {document.map((imagesData, i)=>{
                return <div key={i} className=" col-lg-4 col-md-6 cl-sm-12 box  ">
                 <div className='card border-0 mx-auto img-home d-flex justify-content-center align-items-center ' style={{overflow:'hidden'}}>
                  <img src={imagesData.photoURL} alt="" className='img-fluid w-75'/>
-                  <div className='icons m-3 bg-dark p-1 rounded-4'>
-                  <i class="bi bi-person-circle text-warning fs-4 me-2"></i>
-                 <a href='https://m--ahmed.web.app/' target='_blank' className='fw-bold  mt-3 text-light data' style={{fontSize: 10}}>{user.displayName}</a>
-                  <i class="bi bi-balloon-heart text-danger fs-4 me-3 ms-3"></i><i class="bi bi-collection text-info fs-4 mb-2"></i>
-                  </div>
-                             
+                  <div className='icons w-75 '>
+                  {/* <i className="bi bi-person-circle text-warning fs-4 me-2"></i> */}
+                 {/* <Link to='/profile'  target='_blank' className='fw-bold  mt-3 text-light data' style={{fontSize: 10}}>{imagesData.displayName}</Link> */}
+                   <div className='show-icon'>
+                  <i className="bi bi-cloud-arrow-down-fill text-success fs-3  me-2"></i><span className='text-light'>4.4k</span>
+                  <i className="bi bi-suit-heart-fill  text-danger fs-3 me-3" onClick={handleLike}></i>
+
+                   </div>
+                  </div> 
+                              
                 </div>
               </div>
                })}
             </div>
-          : <div className='spinner-border-danger text-center'>Loading...</div>}
+          : 
+          <div className='text-center'>
+            {/* <div className='spinner-border'></div> */}
+            </div>
+           }
         </div>
      </section>
 
